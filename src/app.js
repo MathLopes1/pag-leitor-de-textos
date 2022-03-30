@@ -29,6 +29,11 @@ const speakText = () => {
     speechSynthesis.speak(utterance)
 }
 
+const setVoice = event => {
+    const selectdVoice = voices.find(voice => voice.name === event.target.value )
+    utterance.voice = selectdVoice
+} 
+
 const createExpressionBox = ({ img, text }) => {
     const div = document.createElement('div')
 
@@ -72,3 +77,5 @@ buttonInsertText.addEventListener('click', () => {
 closeDivTextBox.addEventListener('click', () => {
     divTextBox.classList.remove('show')
 })
+
+selectElement.addEventListener('change', setVoice)

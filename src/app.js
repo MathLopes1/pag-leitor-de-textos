@@ -62,11 +62,24 @@ let voices = []
 
 speechSynthesis.addEventListener('voiceschanged', () => {
     voices = speechSynthesis.getVoices()
+    const googleVoice = voices.find(voice =>
+        voice.name === "Google português do Brasil") 
+    const microsoftVoice = voices.find(voice =>
+        voice.name === "Microsoft Maria - Portuguese (Brazil)") 
 
     voices.forEach(({ name, lang }) => {
         const option = document.createElement('option')
 
         option.value = name
+        
+        if(googleVoice && option.value === googleVoice.name) {
+            utterance.voice = googleVoice
+            option.selected = true
+        } else if (microsoftVoice && option.value === microsoftVoice.name) {
+            utterance.voice = microsoftVoice
+            option.selected = true
+        }
+
         option.textContent = `${lang} | ${name}`
         selectElement.appendChild(option)
     })

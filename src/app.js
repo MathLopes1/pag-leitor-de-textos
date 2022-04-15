@@ -48,44 +48,26 @@ const addExpressionBoxesIntoDOM = () => {
 
 addExpressionBoxesIntoDOM()
 
-main.addEventListener('click', event => {
-    const clickedElement = event.target
-    const clickedElementTextMustBeSpoks = clickedElement.tagName === 'IMG' 
-        || clickedElement.tagName === 'P'
-    if(clickedElementTextMustBeSpoks)
-    
-    setTextMessage(clickedElement.dataset.js)
-    speakText()
-
-    const div = document.querySelector(`[data-js="${clickedElement.dataset.js}"]`)
+const setStyleOfClinckedDiv = datavalue => {
+    const div = document.querySelector(`[data-js="${datavalue}"]`)
     div.classList.add('active')
     setTimeout(() => {
         div.classList.remove('active')
     }, 1000)
+}
+
+main.addEventListener('click', event => {
+    const clickedElement = event.target
+    const clickedElementText = clickedElement.dataset.js
+    const clickedElementTextMustBeSpoks = clickedElement.tagName === 'IMG' 
+        || clickedElement.tagName === 'P'
+    if(clickedElementTextMustBeSpoks)
+    
+    setTextMessage(clickedElementText)
+    speakText()
+    setStyleOfClinckedDiv(clickedElementText)
 })
 
-/* const createExpressionBox = ({ img, text }) => {
-    const div = document.createElement('div')
-
-    div.classList.add('expression-box')
-    div.innerHTML = `
-        <img src= "${img}" alt= "${text}">
-        <p class="info">${text}</p>
-    `
-    div.addEventListener('click', () => {
-        setTextMessage(text)
-        speakText()
-
-        div.classList.add('active')
-        setTimeout(() => {
-            div.classList.remove('active')
-        }, 1000)
-    })
-    main.appendChild(div)
-} */
-
-/* humanExpressions.forEach(createExpressionBox)
- */
 let voices = []
 
 speechSynthesis.addEventListener('voiceschanged', () => {

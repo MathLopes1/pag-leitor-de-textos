@@ -59,8 +59,8 @@ const setStyleOfClinckedDiv = datavalue => {
 main.addEventListener('click', event => {
     const clickedElement = event.target
     const clickedElementText = clickedElement.dataset.js
-    const clickedElementTextMustBeSpoks = clickedElement.tagName === 'IMG' 
-        || clickedElement.tagName === 'P'
+        const clickedElementTextMustBeSpoks = ['img','p'].some(elementName => 
+            clickedElement.tagName.toLowerCase() === elementName.toLowerCase())
     if(clickedElementTextMustBeSpoks)
     
     setTextMessage(clickedElementText)

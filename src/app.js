@@ -36,7 +36,33 @@ const setVoice = event => {
     utterance.voice = selectdVoice
 } 
 
-const createExpressionBox = ({ img, text }) => {
+const addExpressionBoxesIntoDOM = () => {
+    main.innerHTML = humanExpressions.map(({ img, text }) => 
+    `<div class="expression-box" data-js="${text}">
+        <img src="${img}" alt="${text}" data-js="${text}">
+        <p class="info" data-js="${text}">${text}</p>
+    </div>`
+    ).join('')
+    
+}
+
+addExpressionBoxesIntoDOM()
+
+main.addEventListener('click', event => {
+    const clickedElement = event.target
+    if(clickedElement.tagName === 'IMG' || clickedElement.tagName === 'P')
+    
+    setTextMessage(clickedElement.dataset.js)
+    speakText()
+
+    const div = document.querySelector(`[data-js="${clickedElement.dataset.js}"]`)
+    div.classList.add('active')
+    setTimeout(() => {
+        div.classList.remove('active')
+    }, 1000)
+})
+
+/* const createExpressionBox = ({ img, text }) => {
     const div = document.createElement('div')
 
     div.classList.add('expression-box')
@@ -54,10 +80,10 @@ const createExpressionBox = ({ img, text }) => {
         }, 1000)
     })
     main.appendChild(div)
-}
+} */
 
-humanExpressions.forEach(createExpressionBox)
-
+/* humanExpressions.forEach(createExpressionBox)
+ */
 let voices = []
 
 speechSynthesis.addEventListener('voiceschanged', () => {

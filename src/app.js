@@ -50,7 +50,9 @@ addExpressionBoxesIntoDOM()
 
 main.addEventListener('click', event => {
     const clickedElement = event.target
-    if(clickedElement.tagName === 'IMG' || clickedElement.tagName === 'P')
+    const clickedElementTextMustBeSpoks = clickedElement.tagName === 'IMG' 
+        || clickedElement.tagName === 'P'
+    if(clickedElementTextMustBeSpoks)
     
     setTextMessage(clickedElement.dataset.js)
     speakText()
